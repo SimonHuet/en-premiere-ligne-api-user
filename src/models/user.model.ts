@@ -2,6 +2,9 @@ import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository'
 import {Role} from './role.model';
 import {Child} from './child.model';
 import {Blacklist} from './blacklist.model';
+import {Level} from './level.model';
+import {Schedule} from './schedule.model';
+import {TopicUser} from './topic-user.model';
 
 @model()
 export class User extends Entity {
@@ -42,6 +45,15 @@ export class User extends Entity {
 
   @hasMany(() => Blacklist, {keyTo: 'parentId'})
   blacklists: Blacklist[];
+
+  @belongsTo(() => Level)
+  levelId: string;
+
+  @hasMany(() => Schedule)
+  schedules: Schedule[];
+
+  @hasMany(() => TopicUser)
+  topicUsers: TopicUser[];
 
   constructor(data?: Partial<User>) {
     super(data);

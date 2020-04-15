@@ -12,3 +12,8 @@ export * from './blacklist-user.controller';
 export * from './level.controller';
 export * from './schedule.controller';
 export * from './topic-user.controller';
+export * from './user-level.controller';
+export * from './level-user.controller';
+export * from './schedule-user.controller';
+export * from './user-schedule.controller';
+export * from './user-topic-user.controller';

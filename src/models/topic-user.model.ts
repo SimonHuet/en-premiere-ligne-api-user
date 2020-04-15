@@ -15,6 +15,10 @@ export class TopicUser extends Entity {
   })
   topicId: string;
 
+  @property({
+    type: 'string',
+  })
+  userId?: string;
 
   constructor(data?: Partial<TopicUser>) {
     super(data);
