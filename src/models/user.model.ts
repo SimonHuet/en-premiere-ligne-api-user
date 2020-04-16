@@ -1,8 +1,14 @@
-import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
-import {Role} from './role.model';
-import {Child} from './child.model';
+import {
+  belongsTo,
+  Entity,
+  hasMany,
+  model,
+  property,
+} from '@loopback/repository';
 import {Blacklist} from './blacklist.model';
+import {Child} from './child.model';
 import {Level} from './level.model';
+import {Role} from './role.model';
 import {Schedule} from './schedule.model';
 import {TopicUser} from './topic-user.model';
 
@@ -29,6 +35,11 @@ export class User extends Entity {
     type: 'string',
   })
   email?: string;
+
+  @property({
+    type: 'string',
+  })
+  biography?: string;
 
   @property({
     type: 'string',

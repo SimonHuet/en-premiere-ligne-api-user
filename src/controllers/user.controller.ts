@@ -182,4 +182,26 @@ export class UserController {
     ).map(userTopic => userTopic.Topic);
     return topics;
   }
+
+  @get('/topics/{id}/users', {
+    responses: {
+      '200': {
+        description: "Topic's users model instance",
+      },
+    },
+  })
+  async getTopicUsers(@param.path.string('id') id: string): Promise<User[]> {
+    const topicUsers = (
+      await (await this.topicProvider.value()).getTopicUsers(id)
+    ).map(userTopic => userTopic.userUUID);
+    const or: Where<User>[] = topicUsers.map(str => ({
+      id: str,
+    }));
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    return this.userRepository.find({
+      where: {
+        or,
+      },
+    });
+  }
 }

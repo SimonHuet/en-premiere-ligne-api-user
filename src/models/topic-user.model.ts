@@ -1,5 +1,5 @@
 import {Entity, model, property} from '@loopback/repository';
-
+//A Supprimer
 @model()
 export class TopicUser extends Entity {
   @property({

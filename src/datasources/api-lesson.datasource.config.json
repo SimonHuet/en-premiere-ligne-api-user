@@ -11,10 +11,19 @@
   "operations": [{
     "template": {
       "method": "GET",
-      "url": "http://127.0.0.1:3001/topic-users?filter[include][][relation]=Topic&filter[where][userUUID]={topicId}"
+      "url": "http://127.0.0.1:3001/topic-users?filter[include][][relation]=Topic&filter[where][userUUID]={userId}"
     },
     "functions": {
-      "getUserTopics": ["topicId"]
+      "getUserTopics": ["userId"]
+    }
+  },
+  {
+    "template": {
+      "method": "GET",
+      "url": "http://127.0.0.1:3001/topic-users?filter[where][topicUUID]={topicId}"
+    },
+    "functions": {
+      "getTopicUsers": ["topicId"]
     }
   }]
 }
