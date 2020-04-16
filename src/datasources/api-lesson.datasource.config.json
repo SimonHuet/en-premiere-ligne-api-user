@@ -1,0 +1,20 @@
+{
+  "name": "api_lesson",
+  "connector": "rest",
+  "debug": "true",
+  "options": {
+    "headers": {
+      "accept": "application/json",
+      "content-type": "application/json"
+    }
+  },
+  "operations": [{
+    "template": {
+      "method": "GET",
+      "url": "http://127.0.0.1:3001/topic-users?filter[include][][relation]=Topic&filter[where][userUUID]={topicId}"
+    },
+    "functions": {
+      "getUserTopics": ["topicId"]
+    }
+  }]
+}
