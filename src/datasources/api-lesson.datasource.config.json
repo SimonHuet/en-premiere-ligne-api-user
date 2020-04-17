@@ -11,19 +11,25 @@
   "operations": [{
     "template": {
       "method": "GET",
-      "url": "http://127.0.0.1:3001/topic-users?filter[include][][relation]=Topic&filter[where][userUUID]={userId}"
+      "url": "http://127.0.0.1:3001/topic-users?filter[include][][relation]=Topic&filter[where][userUUID]={userId}",
+      "headers":{
+        "customAllow": "true"
+      }
     },
     "functions": {
-      "getUserTopics": ["userId"]
+      "getUserTopics": ["userId","token"]
     }
   },
   {
     "template": {
       "method": "GET",
-      "url": "http://127.0.0.1:3001/topic-users?filter[where][topicUUID]={topicId}"
+      "url": "http://127.0.0.1:3001/topic-users?filter[where][topicUUID]={topicId}",
+      "headers":{
+        "customAllow": "true"
+      }
     },
     "functions": {
-      "getTopicUsers": ["topicId"]
+      "getTopicUsers": ["topicId","token"]
     }
   }]
 }

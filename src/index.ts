@@ -1,5 +1,5 @@
-import {ApiUserApplication} from './application';
 import {ApplicationConfig} from '@loopback/core';
+import {ApiUserApplication} from './application';
 
 export {ApiUserApplication};
 
