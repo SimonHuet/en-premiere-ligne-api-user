@@ -5,7 +5,48 @@ import {
   ValueOrPromise,
 } from '@loopback/core';
 import {juggler} from '@loopback/repository';
-import config from './api-lesson.datasource.config.json';
+
+const config = {
+  name: 'api_lesson',
+  connector: 'rest',
+  debug: 'true',
+  options: {
+    headers: {
+      accept: 'application/json',
+      'content-type': 'application/json',
+    },
+  },
+  operations: [
+    {
+      template: {
+        method: 'GET',
+        url:
+          process.env.API_LESSON_URL +
+          '/topic-users?filter[include][][relation]=Topic&filter[where][userUUID]={userId}',
+        headers: {
+          customAllow: 'true',
+        },
+      },
+      functions: {
+        getUserTopics: ['userId'],
+      },
+    },
+    {
+      template: {
+        method: 'GET',
+        url:
+          process.env.API_LESSON_URL +
+          '/topic-users?filter[where][topicUUID]={topicId}',
+        headers: {
+          customAllow: 'true',
+        },
+      },
+      functions: {
+        getTopicUsers: ['topicId'],
+      },
+    },
+  ],
+};
 
 @lifeCycleObserver('datasource')
 export class ApiLessonDataSource extends juggler.DataSource

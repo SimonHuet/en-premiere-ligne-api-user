@@ -8,7 +8,11 @@ import {
 } from '@loopback/context';
 import {HttpErrors, RequestContext} from '@loopback/rest';
 import Keycloak from '../keycloak-verify-modified';
-import config from './keycloak.json';
+
+const config = {
+  authServerUrl: process.env.KEYCLOAK_URL,
+  realm: 'master',
+};
 /**
  * This class will be bound to the application as an `Interceptor` during
  * `boot`
@@ -46,11 +50,7 @@ export class KeycloakInterceptor implements Provider<Interceptor> {
       const headers = requestCtx.request.headers;
       const route = requestCtx.request.url;
 
-      if (
-        route !== '/explorer/' &&
-        route !== '/explorer/openapi.json' &&
-        headers.customallow !== 'true'
-      ) {
+      if (route.search('explorer') === -1 && headers.customallow !== 'true') {
         const user = await keycloak.verifyOnline(headers.authorization);
         console.log(user);
       }
@@ -60,7 +60,11 @@ export class KeycloakInterceptor implements Provider<Interceptor> {
       return result;
     } catch (err) {
       // Add error handling logic here
-      throw new HttpErrors[401](err.response.statusText);
+      if (err.response) {
+        throw new HttpErrors[401](err.response.statusText);
+      } else {
+        throw new HttpErrors[401](err);
+      }
     }
   }
 }
